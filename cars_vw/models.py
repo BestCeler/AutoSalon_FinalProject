@@ -1,4 +1,5 @@
-from django.db.models import Model, CharField, IntegerField, ForeignKey, SET_NULL, BooleanField, ImageField, DateField
+from django.db.models import Model, CharField, IntegerField, ForeignKey, SET_NULL, BooleanField, ImageField, DateField, \
+    CASCADE
 
 
 # creating models of cars which are linked with each unique car in database
@@ -35,10 +36,10 @@ class CarColor(Model):
 
 # establishes individual cars in the database
 class Car(Model):
-    model = ForeignKey(CarModel, null=False, blank=False, on_delete=SET_NULL, related_name='cars')
+    model = ForeignKey(CarModel, null=False, blank=False, on_delete=CASCADE, related_name='cars')
     transmission = BooleanField(null=False, blank=False, default=False) # false for manual, true for auto
-    color = ForeignKey(CarColor, null=False, blank=False, on_delete=SET_NULL, related_name='cars') # linked with color db
-    established = DateField(null=False, blank=False, auto_now=True, auto_now_add=True) # when was the car put in the salon
+    color = ForeignKey(CarColor, null=False, blank=False, on_delete=CASCADE, related_name='cars') # linked with color db
+    established = DateField(null=False, blank=False, auto_now_add=True) # when was the car put in the salon
     price = IntegerField(null=False, blank=False, default=0)
     designation = BooleanField(null=False, blank=False, default=False) # for_sale = true, for_rent = false
     test_drive = BooleanField(null=False, blank=False, default=False)
