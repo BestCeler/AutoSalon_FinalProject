@@ -54,7 +54,7 @@ class Car(Model):
 
     def __repr__(self):
         return (f"model: {self.model.name} \n"
-                f"id {self.id} \n"
+                f"id {self.cid} \n"
                 f"established: {self.established}")
 
 

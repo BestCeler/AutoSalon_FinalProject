@@ -3,23 +3,23 @@
 ## Features
 
 ### Databases
- - [ ] Car Database
-   - [ ] model - foreign key to Model
-   - [ ] manual / auto
-   - [ ] color - foreign key
-   - [ ] Date of establishment
-   - [ ] price
-   - [ ] rentable / sellable
-   - [ ] test drive 0/1
-   - [ ] SPZ
-   - [ ] location = city
+ - [x] Car Database
+   - [x] model - foreign key to Model
+   - [x] manual / auto
+   - [x] color - foreign key
+   - [x] Date of establishment
+   - [x] price
+   - [x] rentable / sellable
+   - [x] test drive 0/1
+   - [x] SPZ
+   - [x] location = city
 
-- [ ] Model Database
-  - [ ] name
-  - [ ] field of range
-  - [ ] description
-  - [ ] number of seats
-  - [ ] pictures
+- [x] Model Database
+  - [x] name
+  - [x] field of range
+  - [x] description
+  - [x] number of seats
+  - [x] pictures
 
 - [ ] User Database
   - [ ] privileges
@@ -88,3 +88,11 @@
   - [ ] test drives
 
 
+------------
+
+# Progress
+### 08-04-2025
+- creation of the cars models
+- creation of admin
+- creation of db object creation in admin panel
+- first establishment of views
