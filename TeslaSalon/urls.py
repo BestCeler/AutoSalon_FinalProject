@@ -17,10 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from cars_vw.views import home
+from cars_vw.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', home, name='home'),
+
+    path('cars/', CarsListView.as_view(), name='cars'),
+    path('car/<int:pk>/', CarDetailView.as_view(), name='car'),
+
 ]
