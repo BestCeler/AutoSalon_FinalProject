@@ -21,46 +21,46 @@
   - [x] number of seats
   - [x] pictures
 
-- [ ] User Database
-  - [ ] privileges
-  - [ ] e-mail
-  - [ ] username
-  - [ ] full name
-  - [ ] phone number
-  - [ ] address
-    - [ ] country
-      - [ ] state if US
-    - [ ] city
-    - [ ] postcode
-    - [ ] street
+- [x] User Database
+  - [x] privileges
+  - [x] e-mail
+  - [x] username
+  - [x] full name
+  - [x] phone number
+  - [x] address
+    - [x] country
+      - [x] state if US
+    - [x] city
+    - [x] postcode
+    - [x] street
     - [ ] is voluntary
 
-- [ ] Orders
-  - [ ] order number
-  - [ ] date of order
-  - [ ] user
-  - [ ] shop address
+- [x] Orders
+  - [x] order number
+  - [x] date of order
+  - [x] user
+  - [x] shop address
 
--[ ] Order Line
-  - [ ] Order - FK to Orders
-  - [ ] product
-  - [ ] price
-  - [ ] amount
-  - [ ] warranty
+-[x] Order Line
+  - [x] Order - FK to Orders
+  - [x] product
+  - [x] price
+  - [x] amount
+  - [x] warranty
 
-- [ ] Test Drive
-  - [ ] Date / time
-  - [ ] user
-  - [ ] location
-  - [ ] product
+- [x] Test Drive
+  - [x] Date / time
+  - [x] user
+  - [x] location
+  - [x] product
 
-- [ ] Rents
-  - [ ] user
-  - [ ] price
-  - [ ] product - FK to Cars
-  - [ ] datetime from
-  - [ ] datetime to
-  - [ ] location
+- [x] Rents
+  - [x] user
+  - [x] price
+  - [x] product - FK to Cars
+  - [x] datetime from
+  - [x] datetime to
+  - [x] location
 
 
 ### Web
@@ -96,3 +96,7 @@
 - creation of admin
 - creation of db object creation in admin panel
 - first establishment of views
+
+### 09-04-2025
+- update to cars
+- created basic dbs for user and orders
