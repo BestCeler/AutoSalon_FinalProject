@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cars Models
+{% endblock %}
+
+{% block content %}
+    <h1>Cars Models</h1>
+        <a href="{% url 'car_create' %}" class="btn btn-primary">Add</a>
+    <ul>
+        {% for car in cars %}
+            <li>
+                <a href="{% url 'car' car.id %}">{{ car.model.name }}</a>
+                <a href="{% url 'car_update' country.id %}">✏️</a>
+                <a href="{% url 'car_delete' country.id %}">❌</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
