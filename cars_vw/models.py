@@ -27,7 +27,7 @@ class CarColor(Model):
     class Meta:
         ordering = ['name']
 
-    def str(self):
+    def __str__(self):
         return f"color: {self.name}"
 
     def __repr__(self):
