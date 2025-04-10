@@ -1,9 +1,11 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.forms import BooleanField
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from cars_vw.models import Car
+from cars_vw.forms import CarModelForm
+from cars_vw.models import Car, CarModel
 
 
 # Create your views here.
@@ -14,19 +16,19 @@ def home(request):
 
 class CarsListView(ListView):
     template_name = 'cars.html'
-    model = Car
+    model = CarModel
     context_object_name = 'cars'
 
 
 class CarDetailView(DetailView):
     template_name = 'car.html'
-    model = Car
+    model = CarModel
     context_object_name = 'car'
 
 
 class CarCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
-    form_class = CarModelForm      # TODO add to form.py
+    form_class = CarModelForm
     success_url = reverse_lazy('cars')
     permission_required = 'cars_vw.add_car'
 
@@ -38,7 +40,7 @@ class CarCreateView(PermissionRequiredMixin, CreateView):
 class CarUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CarModelForm
-    model = Car
+    model = CarModel
     success_url = reverse_lazy('cars')
     permission_required = 'cars_vw.change_car'
 
@@ -49,7 +51,8 @@ class CarUpdateView(PermissionRequiredMixin, UpdateView):
 
 class CarDeleteView(#StaffRequiredMixin,
         PermissionRequiredMixin, DeleteView):
+
     template_name = 'confirm_delete.html'
-    model = Car
+    model = CarModel
     success_url = reverse_lazy('cars')
-    permission_required = 'cars_vw.change_car'
+    permission_required = 'cars_vw.delete_car'

@@ -26,9 +26,9 @@ urlpatterns = [
 
     path('cars/', CarsListView.as_view(), name='cars'),
     path('car/<int:pk>/', CarDetailView.as_view(), name='car'),
-    path('country/create/', CarCreateView.as_view(), name='car_create'),
-    path('country/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
-    path('country/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
+    path('car/create/', CarCreateView.as_view(), name='car_create'),
+    path('car/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
+    path('car/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
 
 
 
