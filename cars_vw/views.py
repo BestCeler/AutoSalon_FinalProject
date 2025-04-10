@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from cars_vw.forms import CarModelForm
 from cars_vw.models import Car
 
 
@@ -52,4 +53,4 @@ class CarDeleteView(#StaffRequiredMixin,
     template_name = 'confirm_delete.html'
     model = Car
     success_url = reverse_lazy('cars')
-    permission_required = 'cars_vw.change_car'
+    permission_required = 'cars_vw.delete_car'

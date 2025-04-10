@@ -1,8 +1,12 @@
+import profile
+
 from django.contrib.auth.forms import UserCreationForm
 from django.db.transaction import atomic
 from django.forms import CharField, PasswordInput
 
+from users.models import Profile
 
+# Create a user
 class SignupForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         fields = ["username",
@@ -31,3 +35,9 @@ class SignupForm(UserCreationForm):
     def save(self, commit=True):
         self.instance.is_active = True
         user = super().save(commit) # creates a user
+        profile = Profile(
+            user=user,
+        )
+        if commit:
+            profile.save() # saves created profile
+        return user

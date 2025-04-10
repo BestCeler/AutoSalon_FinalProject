@@ -18,17 +18,21 @@ from django.contrib import admin
 from django.urls import path
 
 from cars_vw.views import *
+from users.views import SubmittableLoginView, SignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', home, name='home'),
 
+    path("user/login/", SubmittableLoginView.as_view(), name="login"),
+    path("user/signup/", SignUpView.as_view(), name="signup"),
+
     path('cars/', CarsListView.as_view(), name='cars'),
     path('car/<int:pk>/', CarDetailView.as_view(), name='car'),
-    path('country/create/', CarCreateView.as_view(), name='car_create'),
-    path('country/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
-    path('country/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
+    path('car/create/', CarCreateView.as_view(), name='car_create'),
+    path('car/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
+    path('car/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
 
 
 

@@ -11,8 +11,9 @@
         {% for car in cars %}
             <li>
                 <a href="{% url 'car' car.id %}">{{ car.model.name }}</a>
-                <a href="{% url 'car_update' country.id %}">✏️</a>
-                <a href="{% url 'car_delete' country.id %}">❌</a>
+                <a href="{% url 'car_update' car.id %}">✏️</a>
+                <a href="{% url 'car_delete' car.id %}">❌</a>
+
             </li>
         {% endfor %}
     </ul>
