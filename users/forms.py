@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import CharField
+from django.db.transaction import atomic
+from django.forms import CharField, PasswordInput
 
 
 class SignupForm(UserCreationForm):
@@ -18,4 +19,15 @@ class SignupForm(UserCreationForm):
 
     password1 = CharField(
         label="Password",
+        widget=PasswordInput(attrs={"placeholder": "Password"})
     )
+
+    password2 = CharField(
+        label="Confirm Password",
+        widget=PasswordInput(attrs={"placeholder": "Confirm Password"})
+    )
+
+    @atomic
+    def save(self, commit=True):
+        self.instance.is_active = True
+        user = super().save(commit) # creates a user
