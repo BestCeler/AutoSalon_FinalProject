@@ -8,11 +8,11 @@
     <h1>Cars Models</h1>
         <a href="{% url 'car_create' %}" class="btn btn-primary">Add</a>
     <ul>
-        {% for car in cars %}
+        {% for model in cars %}
             <li>
-                <a href="{% url 'car' car.id %}">{{ car.model.name }}</a>
-                <a href="{% url 'car_update' car.id %}">✏️</a>
-                <a href="{% url 'car_delete' car.id %}">❌</a>
+                <a href="{% url 'car' model.id %}">{{ model.name }}</a>
+                <a href="{% url 'car_update' model.id %}">✏️</a>
+                <a href="{% url 'car_delete' model.id %}">❌</a>
 
             </li>
         {% endfor %}

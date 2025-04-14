@@ -29,10 +29,12 @@ urlpatterns = [
     path("user/signup/", SignUpView.as_view(), name="signup"),
 
     path('cars/', CarsListView.as_view(), name='cars'),
-    path('car/<int:pk>/', CarDetailView.as_view(), name='car'),
+    path('car/<int:pk>/', CarToModelDetailView.as_view(), name='car'),
     path('car/create/', CarCreateView.as_view(), name='car_create'),
     path('car/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
     path('car/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
+
+    path("car/color/filter", car_filter, name='car_filter'),
 
 
 

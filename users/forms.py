@@ -21,6 +21,7 @@ class SignupForm(UserCreationForm):
             "email": "E-mail",
         }
 
+
     password1 = CharField(
         label="Password",
         widget=PasswordInput(attrs={"placeholder": "Password"})

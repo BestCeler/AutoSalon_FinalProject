@@ -3,7 +3,7 @@ from django.db.models import Model, CharField, IntegerField, ForeignKey, SET_NUL
 
 
 class Picture(Model):
-    img = ImageField(upload_to="car_pictures/", null=False, blank=True)
+    img = ImageField(upload_to="pictures/car_pictures/", null=False, blank=True)
 
 
 # creating models of cars which are linked with each unique car in database

@@ -1,6 +1,6 @@
 from django.forms import ModelForm, DateField
 
-from cars_vw.models import Car, CarModel
+from cars_vw.models import Car, CarModel, Picture
 
 
 class CarForm(ModelForm):
@@ -42,3 +42,8 @@ class CarModelForm(ModelForm):
         "c_for" : "field of range",
         "num_seats" : "number of seats"
     }
+
+class PictureForm(ModelForm):
+    class Meta:
+        model = Picture
+        fields = "__all__"
