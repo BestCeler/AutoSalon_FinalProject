@@ -30,6 +30,6 @@ urlpatterns = [
     path('car/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
     path('car/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
 
-
+    path('search/', search, name='search'),
 
 ]

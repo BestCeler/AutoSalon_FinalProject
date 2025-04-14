@@ -34,12 +34,6 @@ class CarForm(ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
-    def clean_model(self):
-        initial = self.cleaned_data['model']
-        if initial:
-            return initial.capitalize()
-        return initial
-
     def clean_price(self):
         initial = int(self.cleaned_data['price'])
         if initial is not None and initial <= 0:
@@ -73,7 +67,7 @@ class CarModelForm(ModelForm):
     def clean_name(self):
         initial = self.cleaned_data['name']
         if initial:
-            return initial.capitalize()
+            return initial.title()
         return initial
 
     def clean_description(self):
@@ -81,7 +75,7 @@ class CarModelForm(ModelForm):
         sentences = re.sub(r'\s*\.\s*', '.', initial).split('.')
         return '. '.join(sentence.capitalize() for sentence in sentences)
 
-    def clean_length(self):
+    def clean_c_for(self):
         initial = int(self.cleaned_data['c_for'])
         if initial is not None and initial <= 0:
             raise ValidationError("Must be a positive number.")
