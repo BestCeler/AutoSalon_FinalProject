@@ -1,8 +1,9 @@
 import profile
 
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import IntegerField
 from django.db.transaction import atomic
-from django.forms import CharField, PasswordInput
+from django.forms import CharField, PasswordInput, IntegerField
 
 from users.models import Profile
 
@@ -21,6 +22,11 @@ class SignupForm(UserCreationForm):
             "email": "E-mail",
         }
 
+    phone = IntegerField(
+        label='Telefonní číslo',
+        required=True
+    )
+
 
     password1 = CharField(
         label="Password",
@@ -36,8 +42,10 @@ class SignupForm(UserCreationForm):
     def save(self, commit=True):
         self.instance.is_active = True
         user = super().save(commit) # creates a user
+        phone = self.cleaned_data.get("phone")
         profile = Profile(
             user=user,
+            phone_num = phone
         )
         if commit:
             profile.save() # saves created profile

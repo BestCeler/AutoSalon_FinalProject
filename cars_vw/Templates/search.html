@@ -10,7 +10,7 @@
     <h2>Results for car name:</h2>
     <ul>
         {% for car in name %}
-            <li><a href="{% url 'car' car.id %}">{{ car.name }}</a></li>
+            <li><a href="{% url 'model' car.id %}">{{ car.name }}</a></li>
         {% empty %}
             No record found.
         {% endfor %}
@@ -19,7 +19,7 @@
     <h2>Results by number of kilometers per charge of the model:</h2>
     <ul>
         {% for car in c_for %}
-            <li><a href="{% url 'car' car.id %}">{{ car.c_for }} km - {{ car.name }}</a></li>
+            <li><a href="{% url 'model' car.id %}">{{ car.c_for }} km - {{ car.name }}</a></li>
         {% empty %}
             No record found.
         {% endfor %}
@@ -28,7 +28,7 @@
     <h2>Results for car description:</h2>
     <ul>
         {% for car in description %}
-            <li><a href="{% url 'car' car.id %}">{{ car.description }}</a></li>
+            <li><a href="{% url 'model' car.id %}">{{ car.description }}</a></li>
         {% empty %}
             No record found.
         {% endfor %}
@@ -37,7 +37,7 @@
     <h2>Results by number of seats in the car:</h2>
     <ul>
         {% for car in num_seats %}
-            <li><a href="{% url 'car' car.id %}">{{ car.num_seats }} seats in the car: {{ car.name }}</a></li>
+            <li><a href="{% url 'model' car.id %}">{{ car.num_seats }} seats in the car: {{ car.name }}</a></li>
         {% empty %}
             No record found.
         {% endfor %}

@@ -92,3 +92,22 @@ class ModelDeleteView(#StaffRequiredMixin,
     model = Car
     success_url = reverse_lazy('models')
     permission_required = 'cars_vw.delete_car'
+
+
+def search(request):
+    if request.method == 'POST':
+        search_string = request.POST.get('search').strip()
+        if search_string:
+            name = CarModel.objects.filter(name__contains=search_string)
+            c_for = CarModel.objects.filter(c_for__contains=search_string)
+            description = CarModel.objects.filter(description__contains=search_string)
+            num_seats = CarModel.objects.filter(num_seats__contains=search_string)
+
+            context = {'search': search_string,
+                       'name': name,
+                       'c_for': c_for,
+                       'description': description,
+                       'num_seats': num_seats}
+
+            return render(request, 'search.html', context)
+    return render(request, 'home.html')
