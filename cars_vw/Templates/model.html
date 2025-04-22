@@ -23,10 +23,14 @@
     {% for car in cars %}
     <li>{{car.color}}</li>
     {% endfor %}
+
+    {% for car in cars %}
+    <li>{{car.model}}</li>
+    {% endfor %}
 </ul>
 
 
-<form method="post" action="{% url 'model' model.id %}">
+<form method="post" action="{% url 'car_filter' %}">
     {% csrf_token %}
     <input type="hidden" id="model" name="model" value="{{ model.id }}">
 <label for="color">Choose a car:</label>

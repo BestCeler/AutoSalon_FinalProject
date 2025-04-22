@@ -2,7 +2,7 @@ import profile
 
 from django.contrib.auth.forms import UserCreationForm
 from django.db.transaction import atomic
-from django.forms import CharField, PasswordInput
+from django.forms import CharField, PasswordInput, IntegerField
 
 from users.models import Profile
 
@@ -32,12 +32,18 @@ class SignupForm(UserCreationForm):
         widget=PasswordInput(attrs={"placeholder": "Confirm Password"})
     )
 
+    phone = IntegerField(
+        label="Phone Number",
+        required=True
+    )
+
     @atomic
     def save(self, commit=True):
         self.instance.is_active = True
         user = super().save(commit) # creates a user
         profile = Profile(
             user=user,
+            phone_num = phone
         )
         if commit:
             profile.save() # saves created profile

@@ -108,3 +108,7 @@
 
 ### 14-04-2025
 - attempts at creating orders
+
+### 22-04-2025
+- work on orders proceeds in an orderly fashion
+- Eldritch gods consulted

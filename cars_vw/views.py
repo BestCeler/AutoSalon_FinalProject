@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from cars_vw.forms import CarModelForm
@@ -38,27 +38,22 @@ class CarToModelDetailView(DetailView):
         #print(self.object)
         return context
 
+
+
+class CarFilterView(DetailView):
+
+
+
     def post(self, request, *args, **kwargs):
-        model_ = request.POST.get("model")
-        color_ = request.POST.get("color")
-        filtered_cars = Car.objects.filter(color=color_ ,model=model_)
+        #context = self.get_context_data(**kwargs)
+        color_ = self.request.POST.get("color")
+        model_ = self.request.POST.get("model")
+        get_model = CarModel.objects.get(pk=model_)
+        context = {}
+        context["model"] = get_model
+        context["colors"] = CarColor.objects.filter(cars__model= get_model).distinct()
+        context["cars"] = Car.objects.filter(model=model_, color=color_)
 
-        context = {"cars": filtered_cars}
-        print(model_)
-        return render(request, "model.html", context)
-
-
-class CarFilterView(ListView):
-    template_name = 'model.html'
-    #model = CarModel
-    context_object_name = 'model'
-    def post(self, request, *args, **kwargs):
-        model_ = request.POST.get("model")
-        color_ = request.POST.get("color")
-        filtered_cars = Car.objects.filter(color=color_ ,model=model_)
-
-        context = {"cars": filtered_cars}
-        print(model_)
         return render(request, "model.html", context)
 
 
@@ -77,7 +72,7 @@ class ModelCreateView(PermissionRequiredMixin, CreateView):
 class ModelUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CarModelForm
-    model = Car
+    model = CarModel
     success_url = reverse_lazy('models')
     permission_required = 'cars_vw.change_car'
 
@@ -89,6 +84,6 @@ class ModelUpdateView(PermissionRequiredMixin, UpdateView):
 class ModelDeleteView(#StaffRequiredMixin,
         PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
-    model = Car
+    model = CarModel
     success_url = reverse_lazy('models')
     permission_required = 'cars_vw.delete_car'

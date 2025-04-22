@@ -34,7 +34,7 @@ urlpatterns = [
     path('model/update/<int:pk>/',ModelUpdateView.as_view(), name='model_update'),
     path('model/delete/<int:pk>/', ModelDeleteView.as_view(), name='model_delete'),
 
-    path("model/color/filter/", CarFilterView.as_view(), name='car_filter'),
+    path("model/color/filter", CarFilterView.as_view(), name='car_filter'),
 
 
 
