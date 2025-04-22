@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ carmodel }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">🚗 Cars in Auto Salon</h1>
+
+<hr class="my-4">
+<div class="row">
+    <div class="col-md-6">
+            <p><strong>Car Model:</strong> {{ model.name }}</p>
+            <p><strong>The amount of km per charge in a model:</strong> {{ model.c_for }}</p>
+            <p><strong>Description:</strong> {{ model.description }}</p>
+            <p><strong>number of seats:</strong> {{ model.num_seats }}</p>
+            <p><strong>pictures:</strong> {{ model.pictures }}</p>
+
+        </div>
+    </div>
+
+<ul>
+    {% for car in cars %}
+    <li>{{car.color}}</li>
+    {% endfor %}
+</ul>
+
+
+<form method="post" action="{% url 'model' model.id %}">
+    {% csrf_token %}
+    <input type="hidden" id="model" name="model" value="{{ model.id }}">
+<label for="color">Choose a car:</label>
+<select id="color" name="color">
+    {% for color in colors %}
+  <option value= "{{ color.id }}">{{ color }}</option>
+    {% endfor %}
+</select>
+    <button type="submit">submit</button>
+</form>
+
+
+{% endblock %}

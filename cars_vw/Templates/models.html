@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cars Models
+{% endblock %}
+
+{% block content %}
+    <h1>Cars Models</h1>
+        <a href="{% url 'model_create' %}" class="btn btn-primary">Add</a>
+    <ul>
+        {% for model in models %}
+            <li>
+                <a href="{% url 'model' model.id %} ">{{ model.name }}</a>
+                <a href="{% url 'model_update' model.id %}">✏️</a>
+                <a href="{% url 'model_delete' model.id %}">❌</a>
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

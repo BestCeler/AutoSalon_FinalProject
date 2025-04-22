@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from cars_vw.forms import CarModelForm
-from cars_vw.models import Car, CarModel
+from cars_vw.models import Car, CarModel, CarColor
 
 
 # Create your views here.
@@ -13,43 +13,60 @@ def home(request):
     return render(request, 'home.html')
 
 
-class CarsListView(ListView):
-    template_name = 'cars.html'
+class ModelsListView(ListView):
+    template_name = 'models.html'
     model = CarModel
-    context_object_name = 'cars'
+    context_object_name = 'models'
 
 
 """class CarDetailView(DetailView):
-    template_name = 'car.html'
+    template_name = 'model.html'
     model = CarModel
     context_object_name = 'car' # TODO: change into model - we need to change a lot of things to models not cars"""
 
 
 class CarToModelDetailView(DetailView):
-    template_name = 'car.html'
+    template_name = 'model.html'
     model = CarModel
-    context_object_name = 'car'
+    context_object_name = 'model'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #context["models"] = CarModel.objects.get(self.request.META)
         context["cars"] = Car.objects.filter(model=self.object)
+        context["colors"] = CarColor.objects.filter(cars__model=self.object).distinct()
         #print(self.object)
         return context
 
-
-def car_filter(request):
-    if request.method == "POST":
-        filtered_cars = Car.objects.filter(request.post.get())
+    def post(self, request, *args, **kwargs):
+        model_ = request.POST.get("model")
+        color_ = request.POST.get("color")
+        filtered_cars = Car.objects.filter(color=color_ ,model=model_)
 
         context = {"cars": filtered_cars}
+        print(model_)
+        return render(request, "model.html", context)
+
+
+class CarFilterView(ListView):
+    template_name = 'model.html'
+    #model = CarModel
+    context_object_name = 'model'
+    def post(self, request, *args, **kwargs):
+        model_ = request.POST.get("model")
+        color_ = request.POST.get("color")
+        filtered_cars = Car.objects.filter(color=color_ ,model=model_)
+
+        context = {"cars": filtered_cars}
+        print(model_)
+        return render(request, "model.html", context)
 
 
 
-class CarCreateView(PermissionRequiredMixin, CreateView):
+class ModelCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
     form_class = CarModelForm      # TODO add to form.py
-    success_url = reverse_lazy('cars')
+    success_url = reverse_lazy('models')
     permission_required = 'cars_vw.add_car'
 
     def form_invalid(self, form):
@@ -57,11 +74,11 @@ class CarCreateView(PermissionRequiredMixin, CreateView):
         return super().form_invalid(form)
 
 
-class CarUpdateView(PermissionRequiredMixin, UpdateView):
+class ModelUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     form_class = CarModelForm
     model = Car
-    success_url = reverse_lazy('cars')
+    success_url = reverse_lazy('models')
     permission_required = 'cars_vw.change_car'
 
     def form_invalid(self, form):
@@ -69,9 +86,9 @@ class CarUpdateView(PermissionRequiredMixin, UpdateView):
         return super().form_invalid(form)
 
 
-class CarDeleteView(#StaffRequiredMixin,
+class ModelDeleteView(#StaffRequiredMixin,
         PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete.html'
     model = Car
-    success_url = reverse_lazy('cars')
+    success_url = reverse_lazy('models')
     permission_required = 'cars_vw.delete_car'

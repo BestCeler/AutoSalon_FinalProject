@@ -28,13 +28,13 @@ urlpatterns = [
     path("user/login/", SubmittableLoginView.as_view(), name="login"),
     path("user/signup/", SignUpView.as_view(), name="signup"),
 
-    path('cars/', CarsListView.as_view(), name='cars'),
-    path('car/<int:pk>/', CarToModelDetailView.as_view(), name='car'),
-    path('car/create/', CarCreateView.as_view(), name='car_create'),
-    path('car/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
-    path('car/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
+    path('models/', ModelsListView.as_view(), name='models'),
+    path('model/<int:pk>/', CarToModelDetailView.as_view(), name='model'),
+    path('model//create/', ModelCreateView.as_view(), name='model_create'),
+    path('model/update/<int:pk>/',ModelUpdateView.as_view(), name='model_update'),
+    path('model/delete/<int:pk>/', ModelDeleteView.as_view(), name='model_delete'),
 
-    path("car/color/filter", car_filter, name='car_filter'),
+    path("model/color/filter/", CarFilterView.as_view(), name='car_filter'),
 
 
 
