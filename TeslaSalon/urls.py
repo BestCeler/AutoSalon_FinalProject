@@ -18,27 +18,24 @@ from django.contrib import admin
 from django.urls import path
 
 from cars_vw.views import *
+from users.views import SubmittableLoginView, SignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', home, name='home'),
 
-    path('cars/', CarsListView.as_view(), name='cars'),
-    path('car/<int:pk>/', CarDetailView.as_view(), name='car'),
-    path('car/create/', CarCreateView.as_view(), name='car_create'),
-    path('car/update/<int:pk>/',CarUpdateView.as_view(), name='car_update'),
-    path('car/delete/<int:pk>/', CarDeleteView.as_view(), name='car_delete'),
+    path("user/login/", SubmittableLoginView.as_view(), name="login"),
+    path("user/signup/", SignUpView.as_view(), name="signup"),
 
-    path('search/', search, name='search'),
+    path('models/', ModelsListView.as_view(), name='models'),
+    path('model/<int:pk>/', CarToModelDetailView.as_view(), name='model'),
+    path('model//create/', ModelCreateView.as_view(), name='model_create'),
+    path('model/update/<int:pk>/',ModelUpdateView.as_view(), name='model_update'),
+    path('model/delete/<int:pk>/', ModelDeleteView.as_view(), name='model_delete'),
 
-    #path('accounts/login/', LoginView.as_view(), name='login'),
+    path("model/color/filter/", CarFilterView.as_view(), name='car_filter'),
 
-    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
-    path('accounts/logout/', user_logout, name='logout'),
-    # ostatní defaultní cesty
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup/', SignUpView.as_view(), name='signup'),
-    path('profile/<int:pk>/', ProfileDetailView.as_view(), name='profile'),
+
 
 ]

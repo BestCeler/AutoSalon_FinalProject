@@ -100,3 +100,11 @@
 ### 09-04-2025
 - update to cars
 - created basic dbs for user and orders
+
+### 10-04-2025
+- forms and models for users and orders done
+- views for users done
+- started on pages for user authentication
+
+### 14-04-2025
+- attempts at creating orders

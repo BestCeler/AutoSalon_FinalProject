@@ -1,7 +1,7 @@
 from django.contrib.admin import ModelAdmin
 from django.contrib import admin
 
-from cars_vw.models import Car, CarModel, CarColor
+from cars_vw.models import Car, CarModel, CarColor, Picture
 
 #class CardAdmin(ModelAdmin):
  #   @staticmethod
@@ -9,3 +9,4 @@ from cars_vw.models import Car, CarModel, CarColor
 admin.site.register(CarModel)
 admin.site.register(CarColor)
 admin.site.register(Car)
+admin.site.register(Picture)

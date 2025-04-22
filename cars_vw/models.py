@@ -1,5 +1,9 @@
 from django.db.models import Model, CharField, IntegerField, ForeignKey, SET_NULL, BooleanField, ImageField, DateField, \
-    CASCADE
+    CASCADE, ManyToManyField
+
+
+class Picture(Model):
+    img = ImageField(upload_to="pictures/car_pictures/", null=False, blank=True)
 
 
 # creating models of cars which are linked with each unique car in database
@@ -8,7 +12,7 @@ class CarModel(Model):
     c_for = IntegerField(null=False, blank=False) # c_for or car_field_of_range. The amount of km per charge in a model
     description = CharField(max_length=200, null=True, blank=True)
     num_seats = IntegerField(null=False, blank=False)
-    pictures = ImageField(upload_to="car_pictures/",null=True, blank=True) # set of images showcasing the model
+    pictures = ManyToManyField(Picture) # set of images showcasing the model
 
     class Meta:
         ordering = ('name', 'num_seats', 'c_for')
@@ -50,7 +54,7 @@ class Car(Model):
         ordering = ['cid' ,'established'] # orders the db by the SPZ and by the date when the car was taken in the shop
 
     def __str__(self):
-        return f"this car is of model {self.model.name}, id {self.id} and was established {self.established}"
+        return f"this car is of model {self.model.name}, id {self.cid} and was established {self.established}"
 
     def __repr__(self):
         return (f"model: {self.model.name} \n"

@@ -1,29 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Form
+    Formulář
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h2 class="mb-4">Please fill out the form</h2>
+<form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" id="id_submit" value="Uložit" class="btn btn-primary">
+    </form>
+{% block appendix %}
+{% endblock %}
 
-        <form method="post" novalidate>
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <div class="text-danger">{{ error }}</div>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
 {% endblock %}
