@@ -23,7 +23,7 @@ class SignupForm(UserCreationForm):
         }
 
     phone = IntegerField(
-        label='Telefonní číslo',
+        label='Telephone number',
         required=True
     )
 
