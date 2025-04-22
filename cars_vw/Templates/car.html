@@ -19,7 +19,7 @@
 
     </div>
 <hr>
-    {% if perms.viewer.change_movie %}
+    {% if perms.cars_vw.change_car %}
         <a href="{% url 'car_update' car.id %}" class="btn btn-primary">Update</a>
     {% endif %}
     {% if perms.cars_vw.delete_car %}

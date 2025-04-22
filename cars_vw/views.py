@@ -69,7 +69,7 @@ def search(request):
 
             context = {'search': search_string,
                        'name': name,
-                       's_for': c_for,
+                       'c_for': c_for,
                        'description': description,
                        'num_seats': num_seats}
 

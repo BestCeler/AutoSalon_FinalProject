@@ -32,4 +32,13 @@ urlpatterns = [
 
     path('search/', search, name='search'),
 
+    #path('accounts/login/', LoginView.as_view(), name='login'),
+
+    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
+    path('accounts/logout/', user_logout, name='logout'),
+    # ostatní defaultní cesty
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('profile/<int:pk>/', ProfileDetailView.as_view(), name='profile'),
+
 ]
