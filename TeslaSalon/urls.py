@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 
 from cars_vw.views import *
+from orders.views import  *
+#from orders.views import MakeOrderView
 from users.views import SubmittableLoginView, SignUpView
 
 urlpatterns = [
@@ -35,6 +37,8 @@ urlpatterns = [
     path('model/delete/<int:pk>/', ModelDeleteView.as_view(), name='model_delete'),
 
     path("model/color/filter", CarFilterView.as_view(), name='car_filter'),
+    #path("order/new/", MakeOrderView.as_view(), name='order_new'),
+    path("order/make", OrdersActions.as_view(), name='make_order'),
 
 
 

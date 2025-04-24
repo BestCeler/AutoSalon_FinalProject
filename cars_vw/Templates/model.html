@@ -27,19 +27,46 @@
     {% for car in cars %}
     <li>{{car.model}}</li>
     {% endfor %}
+
 </ul>
+
+    {% if cars %}
+    <div>There is a car</div>
+    {% else %}
+    <div>There is no car</div>
+    {% endif %}
+{% if address %}
+<div>{{ address }}</div>
+{% else %}
+<div>none</div>
+{% endif %}
+
 
 
 <form method="post" action="{% url 'car_filter' %}">
     {% csrf_token %}
     <input type="hidden" id="model" name="model" value="{{ model.id }}">
-<label for="color">Choose a car:</label>
+<label for="color">Choose a color:</label>
 <select id="color" name="color">
     {% for color in colors %}
   <option value= "{{ color.id }}">{{ color }}</option>
     {% endfor %}
 </select>
+    <select id="transmission" name="transmission">
+        <option value="0">manual</option>
+        <option value="1">automatic</option>
+    </select>
     <button type="submit">submit</button>
+</form>
+
+<form method="post" action="{% url 'make_order' %}">
+    {% csrf_token %}
+    {% if address %}
+    <input type="hidden" id="shop_address" name="shop_address" value="{{ address.id }}">
+    {% else %}
+    <input type="hidden" id="empty_address" name="shop_address" value="none">
+    {% endif %}
+    <button type="submit">Order</button>
 </form>
 
 

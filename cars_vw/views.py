@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from cars_vw.forms import CarModelForm
 from cars_vw.models import Car, CarModel, CarColor
+from users.models import Address
 
 
 # Create your views here.
@@ -33,26 +34,39 @@ class CarToModelDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         #context["models"] = CarModel.objects.get(self.request.META)
-        context["cars"] = Car.objects.filter(model=self.object)
         context["colors"] = CarColor.objects.filter(cars__model=self.object).distinct()
+        get_address_ = Address.objects.filter(cars__model=self.object).first()
+        context["address"] = get_address_
+        print(context["address"])
+        if context["colors"]:
+            default_color_ = context['colors'][0]
+            context["cars"] = Car.objects.filter(model=self.object, color=default_color_)
+        else:
+            context["cars"] = Car.objects.filter(model=self.object)
+
         #print(self.object)
         return context
 
 
 
 class CarFilterView(DetailView):
-
-
-
     def post(self, request, *args, **kwargs):
         #context = self.get_context_data(**kwargs)
         color_ = self.request.POST.get("color")
         model_ = self.request.POST.get("model")
+        transmission_ = self.request.POST.get("transmission")
         get_model = CarModel.objects.get(pk=model_)
         context = {}
         context["model"] = get_model
         context["colors"] = CarColor.objects.filter(cars__model= get_model).distinct()
-        context["cars"] = Car.objects.filter(model=model_, color=color_)
+        context["cars"] = Car.objects.filter(model=model_, color=color_, transmission=transmission_)
+        if context["cars"]:
+            cars = context["cars"][0]
+        else:
+            cars = None
+        context["address"] = Address.objects.filter(cars=cars).first()
+
+        print(context["address"])
 
         return render(request, "model.html", context)
 
