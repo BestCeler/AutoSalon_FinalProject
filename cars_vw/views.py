@@ -44,6 +44,8 @@ class CarToModelDetailView(DetailView):
         else:
             context["cars"] = Car.objects.filter(model=self.object)
 
+        context["selected_car"] = context["cars"].first()
+
         #print(self.object)
         return context
 

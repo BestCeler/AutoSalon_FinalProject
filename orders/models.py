@@ -15,7 +15,7 @@ class Order(Model):
 class OrderLine(Model):
     order = ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lines')
     product = ForeignKey(Car, null=False, blank=False, on_delete=models.CASCADE, related_name='lines')
-    quantity = IntegerField(null=False, blank=False)
+    quantity = IntegerField(null=False, blank=False, default=1)
     price = IntegerField(null=False, blank=False)
     warranty = IntegerField(null=False, blank=False, default=2) # how long is the warranty
 
