@@ -6,6 +6,14 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from cars_vw.forms import CarModelForm
 from cars_vw.models import Car, CarModel, CarColor
 
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+import requests
+from django.http import JsonResponse
+from django.shortcuts import render
+
 
 # Create your views here.
 
@@ -111,3 +119,59 @@ def search(request):
 
             return render(request, 'search.html', context)
     return render(request, 'home.html')
+
+
+
+# Load your API key from environment
+API_KEY = os.getenv("EXCHANGERATESAPI_KEY")
+print(f"Exchange API KEY: '{API_KEY}'")
+
+def convert_eur_to_czk(request):
+    if not API_KEY:
+        return JsonResponse({"error": "API key missing"}, status=500)
+
+    amount = request.GET.get("amount")  # Пробуємо взяти кількість євро
+    url = f"http://api.exchangeratesapi.io/v1/latest?access_key={API_KEY}&base=EUR&symbols=CZK"
+    headers = {
+        "apikey": API_KEY,
+    }
+    print(f"url: {url}")
+    try:
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        print(f"respons: {response}")
+        print(f"data: {data}")
+        if response.status_code != 200:
+            return JsonResponse({
+                "error": "Failed to retrieve exchange rates",
+                "details": data
+            }, status=response.status_code)
+
+        rate = data["rates"].get("CZK")
+        if not rate:
+            return JsonResponse({"error": "Rate not found"}, status=500)
+
+        if amount:
+            try:
+                amount = float(amount)
+                if amount < 0:
+                    return JsonResponse({"error": "Amount must be positive"}, status=400)
+                converted_czk = round(amount * rate, 2)
+                return JsonResponse({
+                    "amount_eur": amount,
+                    "converted_czk": converted_czk,
+                    "rate": rate
+                })
+            except ValueError:
+                return JsonResponse({"error": "Invalid amount"}, status=400)
+
+        # Якщо параметра amount нема — просто повертаємо курс
+        return JsonResponse({"rate": rate})
+
+    except requests.RequestException as exc:
+        return JsonResponse({"error": "Request failed", "details": str(exc)}, status=500)
+
+def convert_view(request):
+    return render(request, 'convert.html')
+
+
