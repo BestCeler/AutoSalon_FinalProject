@@ -16,5 +16,10 @@
         <div class="navbar-nav ml-auto">
             <a class="nav-item nav-link active" href="{% url 'login' %}">Login</a>
         </div>
+        <div class="navbar-nav m-auto">
+            {% if request.session.order_ %}
+            <a class="nav-item nav-link active" href="{% url 'order_process' pk=request.session.order_ %}">{{request.session.order_}}</a>
+            {% endif %}
+        </div>
     </div>
 </nav>

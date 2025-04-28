@@ -39,6 +39,7 @@ urlpatterns = [
     path("model/color/filter", CarFilterView.as_view(), name='car_filter'),
     #path("order/new/", MakeOrderView.as_view(), name='order_new'),
     path("order/make", OrdersActions.as_view(), name='make_order'),
+    path("order/process/<int:pk>", OrderDetailView.as_view(), name='order_process'),
 
 
 
