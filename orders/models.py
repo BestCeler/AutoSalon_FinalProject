@@ -6,7 +6,7 @@ from cars_vw.models import Car
 
 # Creates an order for a car
 class Order(Model):
-    number = IntegerField(max_length=100, null=False, blank=False) # number of the order
+    number = IntegerField(null=False, blank=False) # number of the order
     date = DateField(auto_now_add=True ,null=False, blank=False) # date of order creation
     client = ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE, related_name='orders') # takes from the db users
     shop_address = ForeignKey(Address, null=False, blank=False, on_delete=models.CASCADE, related_name='orders') # Address can be saved in the address db
@@ -15,7 +15,7 @@ class Order(Model):
 class OrderLine(Model):
     order = ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lines')
     product = ForeignKey(Car, null=False, blank=False, on_delete=models.CASCADE, related_name='lines')
-    quantity = IntegerField(null=False, blank=False)
+    quantity = IntegerField(null=False, blank=False, default=1)
     price = IntegerField(null=False, blank=False)
     warranty = IntegerField(null=False, blank=False, default=2) # how long is the warranty
 

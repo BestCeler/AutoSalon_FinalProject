@@ -38,6 +38,11 @@ class SignupForm(UserCreationForm):
         widget=PasswordInput(attrs={"placeholder": "Confirm Password"})
     )
 
+    phone = IntegerField(
+        label="Phone Number",
+        required=True
+    )
+
     @atomic
     def save(self, commit=True):
         self.instance.is_active = True

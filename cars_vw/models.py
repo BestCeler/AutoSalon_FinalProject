@@ -1,6 +1,8 @@
 from django.db.models import Model, CharField, IntegerField, ForeignKey, SET_NULL, BooleanField, ImageField, DateField, \
     CASCADE, ManyToManyField
 
+from users.models import Address
+
 
 class Picture(Model):
     img = ImageField(upload_to="pictures/car_pictures/", null=False, blank=True)
@@ -48,7 +50,8 @@ class Car(Model):
     designation = BooleanField(null=False, blank=False, default=False) # for_sale = true, for_rent = false
     test_drive = BooleanField(null=False, blank=False, default=False)
     cid = CharField(max_length=16, null=False, blank=False, unique=True) # SPZ or car id, unique set of characters for identification
-    location = CharField(max_length=50, null=False, blank=False, unique=False) # city of the cars location
+    location = ForeignKey(Address, null=False, blank=False, on_delete=CASCADE, related_name="cars") # city of the cars location
+
 
     class Meta:
         ordering = ['cid' ,'established'] # orders the db by the SPZ and by the date when the car was taken in the shop
