@@ -141,7 +141,7 @@ def convert_eur_to_czk(request):
     if not API_KEY:
         return JsonResponse({"error": "API key missing"}, status=500)
 
-    amount = request.GET.get("amount")  # Пробуємо взяти кількість євро
+    amount = request.GET.get("amount")  # Let's try to take the number of euros
     url = f"http://api.exchangeratesapi.io/v1/latest?access_key={API_KEY}&base=EUR&symbols=CZK"
     headers = {
         "apikey": API_KEY,
@@ -176,7 +176,7 @@ def convert_eur_to_czk(request):
             except ValueError:
                 return JsonResponse({"error": "Invalid amount"}, status=400)
 
-        # Якщо параметра amount нема — просто повертаємо курс
+        # If there is no amount parameter, we simply return the rate
         return JsonResponse({"rate": rate})
 
     except requests.RequestException as exc:
