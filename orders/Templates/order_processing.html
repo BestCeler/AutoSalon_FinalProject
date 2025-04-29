@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ Order }}
+{% endblock %}
+
+{% block content %}
+<h1>Order of user {{ request.user }}</h1>
+<ul>
+  <li>Order of: {{ user }}</li>
+  <li>shop address: {{ order }}</li>
+  {% for set in line %}
+  <li>product: {{ set.product.model.name }}</li>
+  {% endfor %}
+</ul>
+
+<form method="post" action="">
+  {% csrf_token %}
+  <ul>
+    {% for set in line %}
+    <li>
+      {{ set.product.model.name }}
+      <input type="number" id="quantity" name="quantity" min="0" value="1">
+    </li>
+    {% endfor %}
+  </ul>
+</form>
+{% endblock %}

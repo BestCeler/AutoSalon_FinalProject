@@ -112,3 +112,7 @@
 ### 22-04-2025
 - work on orders proceeds in an orderly fashion
 - Eldritch gods consulted
+
+### 28-04-2025
+- orders finished
+- working on processing orders

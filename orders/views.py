@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, ListView
 
 from cars_vw.models import Car
 from orders.models import Order, OrderLine
@@ -89,13 +89,27 @@ class OrdersActions(View):
 
             return self.handle_orderline(request)
 
+        def handle_order(self, request):
+            return render(request, "home.html")
+
+        def handle_orderline(self, request):
+            return render(request, "home.html")
+
+        def handle_order_finished(self, request):
+            return render(request, "home.html")
 
 
-    def handle_order(self, request):
-        return render(request,"home.html")
+class OrderDetailView(DetailView):
+    template_name = "order_processing.html"
+    model = Order
+    context_object_name = "order"
 
-    def handle_orderline(self, request):
-        return render(request,"home.html")
+    def get_context_data(self, **kwargs):
+        context = super(OrderDetailView, self).get_context_data(**kwargs)
+        context["line"] = OrderLine.objects.filter(order=self.object)
 
-    def handle_order_finished(self, request):
-        return render(request,"home.html")
+        return context
+
+
+
+
