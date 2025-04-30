@@ -1,7 +1,5 @@
-from django.forms import ModelForm, DateField
-
+from django.forms import ModelForm, ValidationError
 from cars_vw.models import Car, CarModel, Picture, CarColor
-
 
 class CarForm(ModelForm):
     class Meta:
@@ -26,11 +24,19 @@ class CarForm(ModelForm):
         "test_drive" : "y/n"
     }
 
+    # Add validation on price
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        if price is not None and price <= 0:
+            raise ValidationError("Price cannot be negative.")
+        return price
+
 
 class CarColorForm(ModelForm):
     class Meta:
         model = CarColor
         fields = "__all__"
+
 
 class CarModelForm(ModelForm):
     class Meta:
@@ -42,6 +48,29 @@ class CarModelForm(ModelForm):
         "c_for" : "field of range",
         "num_seats" : "number of seats"
     }
+
+
+    # Add a clean method for name autocorrection
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if name:
+            return name.title()
+        return name
+
+    # Add validation to the range field
+    def clean_c_for(self):
+        c_for = self.cleaned_data.get('c_for')
+        if c_for is not None and c_for <= 0:
+            raise ValidationError("The number of kilometers on a single charge cannot be < 0")
+        return c_for
+
+    # Add validation for the number of seats
+    def clean_num_seats(self):
+        num_seats = self.cleaned_data.get('num_seats')
+        if num_seats is not None and num_seats <= 0:
+            raise ValidationError("Number of seats must be greater than zero.")
+        return num_seats
+
 
 class PictureForm(ModelForm):
     class Meta:

@@ -135,7 +135,7 @@ def search(request):
 
 # Load your API key from environment
 API_KEY = os.getenv("EXCHANGERATESAPI_KEY")
-print(f"Exchange API KEY: '{API_KEY}'")
+# print(f"Exchange API KEY: '{API_KEY}'")
 
 def convert_eur_to_czk(request):
     if not API_KEY:
