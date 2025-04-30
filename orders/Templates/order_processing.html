@@ -14,15 +14,60 @@
   {% endfor %}
 </ul>
 
+<div>{{ order.id }}</div>
+
 <form method="post" action="">
   {% csrf_token %}
   <ul>
     {% for set in line %}
     <li>
       {{ set.product.model.name }}
-      <input type="number" id="quantity" name="quantity" min="0" value="1">
+      <div id="price-{{ forloop.counter }}" >Total: <span class="price_output" >{{ set.price }}</span></div>
+      <input type="number" class="quantity" name="quantity"
+             min="0" value="1"
+             data-product-id="{{ set.product.id }}" data-url="{% url 'order_process' order.id %}" data-output-id="price-{{ forloop.counter }}">
     </li>
     {% endfor %}
   </ul>
+  Final Price: <div id="price_final"> {{ total_price }} </div>
 </form>
+
+<script>
+
+  async function calc_price() {
+    document.querySelectorAll(".quantity").forEach(input => {
+      input.addEventListener("input", async function () {
+        const quantity = this.value;
+        const product = this.dataset.productId;
+        const url = this.dataset.url;
+        const outputSet = this.dataset.outputId;
+        const output = document.getElementById(outputSet).querySelector(".price_output");
+        let finalPrice = 0;
+
+
+        if (quantity === "") return;
+
+        fetch(`order/change/${product}/?quantity=${quantity}`)
+                .then(response => response.json())
+                .then(data => {
+                  output.innerText = data.total
+                })
+                .catch(() => {
+                  output.innerText = "I failed"
+                })
+        await new Promise(resolve => setTimeout(resolve, 100))
+        const finalPriceSpan = document.getElementsByClassName("price_output");
+
+        for (let i = 0; i < finalPriceSpan.length; i++) {
+          finalPrice += Number(finalPriceSpan[i].innerText);
+          console.log(finalPrice)
+        }
+        document.getElementById("price_final").innerText = String(finalPrice);
+      });
+    });
+  };
+  document.getElementById("price_final").addEventListener("DOMContentLoaded", calc_price());
+  document.getElementById("price_final").onload = calc_price();
+  calc_price();
+</script>
 {% endblock %}

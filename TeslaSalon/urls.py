@@ -41,6 +41,8 @@ urlpatterns = [
     path("order/make", OrdersActions.as_view(), name='make_order'),
     path("order/process/<int:pk>", OrderDetailView.as_view(), name='order_process'),
 
+    path("order/process/order/change/<int:pk>/", calculate_price, name='calculate_price'),
+
 
 
 ]

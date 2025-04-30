@@ -1,3 +1,5 @@
+from django.db.models import Sum
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
@@ -107,9 +109,26 @@ class OrderDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context["line"] = OrderLine.objects.filter(order=self.object)
+        context["total_price"] = OrderLine.objects.filter(order=self.object).aggregate(s =  Sum("price"))["s"]
 
         return context
 
 
+def calculate_price(request, pk):
+    try:
+        quantity = int(request.GET.get("quantity", 1))
+    except ValueError:
+        quantity = 1
 
+    try:
+        product_ = Car.objects.get(pk=pk)
+        print(product_)
+        car_price_ = product_.price
+        total = int(car_price_ * quantity)
 
+        print(f"Product price: {product_.price}, Total: {total}")
+
+        return JsonResponse({"total": total})
+    except (Car.DoesNotExist, ValueError, TypeError) as e:
+        print(f"error occurred {e}")
+        return JsonResponse({"total": "Error"}, status=400)
