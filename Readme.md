@@ -119,3 +119,6 @@
 
 ### 29-04-2025
 - TODO: script for order_processing
+
+### 30-04-2025
+- did javascript for dynamical updates
