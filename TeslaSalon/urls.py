@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from cars_vw.views import *
+from orders.views import TestDriveDetailView, book_test_drive
 from users.views import *
 
 urlpatterns = [
@@ -46,4 +47,8 @@ urlpatterns = [
 
     path('api/convert-eur-to-czk/', convert_eur_to_czk, name='convert-eur-to-czk'),
     path('convert/', convert_view, name='convert-view'),
+
+    path("testdrive/book/", book_test_drive, name="book_testdrive"),
+    path("testdrive/<int:pk>/", TestDriveDetailView.as_view(), name="testdrive_detail"),
+
 ]

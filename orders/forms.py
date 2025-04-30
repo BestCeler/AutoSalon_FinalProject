@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
-from orders.models import Order, OrderLine
-
+from orders.models import *
+from django import forms
 
 class OrderForm(ModelForm):
     class Meta:
@@ -12,6 +12,7 @@ class OrderForm(ModelForm):
         "client" : "client"
     }
 
+
 class OrderLineForm(ModelForm):
     class Meta:
         model = OrderLine
@@ -20,3 +21,18 @@ class OrderLineForm(ModelForm):
         labels = {
             "quantity" : "number of items",
         }
+
+
+class TestDriveForm(ModelForm):
+    class Meta:
+        model = TestDrive
+        fields = ['product', 'date', 'location']
+        widgets = {
+            'date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+        labels = {
+            'product': 'Select a car',
+            'date': 'Choose date and time',
+            'location': 'Choose showroom location',
+        }
+

@@ -1,11 +1,15 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, DetailView, ListView
 
 from cars_vw.models import Car
-from orders.models import Order, OrderLine
+from orders.forms import TestDriveForm
+from orders.models import Order, OrderLine, TestDrive
 from users.models import Address
+
+
 
 """class MakeOrderView(View):
     model = Order
@@ -112,4 +116,24 @@ class OrderDetailView(DetailView):
 
 
 
+class TestDriveDetailView(DetailView):
+    model = TestDrive
+    template_name = "test_drive.html"
+    context_object_name = "testdrive"
 
+
+# function for creating (booking) a test drive
+@login_required
+def book_test_drive(request):
+    if request.method == "POST":
+        form = TestDriveForm(request.POST)
+        if form.is_valid():
+            test_drive = form.save(commit=False)
+            test_drive.client = request.user
+            test_drive.save()
+            return redirect("testdrive_detail", pk=test_drive.pk)
+
+    else:
+        form = TestDriveForm()
+
+    return render(request, "test_drive.html", {"form": form})

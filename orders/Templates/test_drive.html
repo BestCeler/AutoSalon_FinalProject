@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Test Drive{% endblock %}
+
+{% block content %}
+  <h1>Test Drive</h1>
+
+  {% if form %}
+    <p><strong>User:</strong> {{ request.user }}</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Book Now</button>
+    </form>
+  {% elif testdrive %}
+    <ul>
+      <li><strong>Car Model:</strong> {{ testdrive.product.model.name }}</li>
+      <li><strong>Date:</strong> {{ testdrive.date }}</li>
+      <li><strong>Location:</strong> {{ testdrive.location }}</li>
+    </ul>
+  {% else %}
+    <p>No data available.</p>
+  {% endif %}
+{% endblock %}
