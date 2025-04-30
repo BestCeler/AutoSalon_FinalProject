@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from cars_vw.views import *
-from orders.views import TestDriveDetailView, book_test_drive
+from orders.views import TestDriveDetailView, book_test_drive, OrdersActions, OrderDetailView, book_rent, RentDetailView
 from users.views import *
 
 urlpatterns = [
@@ -35,6 +35,11 @@ urlpatterns = [
     path('model/update/<int:pk>/',ModelUpdateView.as_view(), name='model_update'),
     path('model/delete/<int:pk>/', ModelDeleteView.as_view(), name='model_delete'),
 
+    path("model/color/filter", CarFilterView.as_view(), name='car_filter'),
+    #path("order/new/", MakeOrderView.as_view(), name='order_new'),
+    path("order/make", OrdersActions.as_view(), name='make_order'),
+    path("order/process/<int:pk>", OrderDetailView.as_view(), name='order_process'),
+
     path("model/color/filter/", CarFilterView.as_view(), name='car_filter'),
 
     path('search/', search, name='search'),
@@ -50,5 +55,8 @@ urlpatterns = [
 
     path("testdrive/book/", book_test_drive, name="book_testdrive"),
     path("testdrive/<int:pk>/", TestDriveDetailView.as_view(), name="testdrive_detail"),
+
+    path('rent/book/', book_rent, name='book_rent'),
+    path('rent/<int:pk>/', RentDetailView.as_view(), name='rent_detail')
 
 ]

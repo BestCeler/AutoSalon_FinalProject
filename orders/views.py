@@ -5,10 +5,9 @@ from django.views import View
 from django.views.generic import CreateView, DetailView, ListView
 
 from cars_vw.models import Car
-from orders.forms import TestDriveForm
-from orders.models import Order, OrderLine, TestDrive
+from orders.forms import TestDriveForm, RentForm
+from orders.models import Order, OrderLine, TestDrive, Rents
 from users.models import Address
-
 
 
 """class MakeOrderView(View):
@@ -132,8 +131,27 @@ def book_test_drive(request):
             test_drive.client = request.user
             test_drive.save()
             return redirect("testdrive_detail", pk=test_drive.pk)
-
     else:
         form = TestDriveForm()
 
     return render(request, "test_drive.html", {"form": form})
+
+
+@login_required
+def book_rent(request):
+    if request.method == "POST":
+        form = RentForm(request.POST)
+        if form.is_valid():
+            rent = form.save(commit=False)
+            rent.client = request.user
+            rent.save()
+            return redirect('rent_detail', pk=rent.pk)
+    else:
+        form = RentForm()
+    return render(request, "rent_form.html", {"form": form})
+
+# shows the rental page for a specific car
+class RentDetailView(DetailView):
+    model = Rents
+    template_name = "rent_detail.html"
+    context_object_name = "rent"
