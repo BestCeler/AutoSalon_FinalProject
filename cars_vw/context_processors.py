@@ -1,7 +1,6 @@
 import datetime
 import os
 import requests
-
 from django.conf import settings
 from django.core.cache import cache
 
@@ -27,7 +26,7 @@ def exchange_rate(request):
         return {'exchange_rate': rate}
 
     try:
-        url = f"http://api.exchangeratesapi.io/v1/latest?access_key={API_KEY}&base=EUR&symbols=CZK"
+        url = f"https://api.exchangeratesapi.io/v1/latest?access_key={API_KEY}&base=EUR&symbols=CZK"
         response = requests.get(url)
         data = response.json()
         rate = data["rates"].get("CZK")
