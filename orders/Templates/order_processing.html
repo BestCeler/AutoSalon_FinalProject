@@ -24,7 +24,7 @@
       {{ set.product__model__name }} ({{ set }})
       <div id="price-{{ forloop.counter }}" >Total: <span class="price_output" >{{ set.price }}</span></div>
       <input type="number" class="quantity" name="quantity"
-             min="0" max="{{ cars_count }}" value="{{ set.count }}"
+             min="0" max="{{ set.max_count }}" value="{{ set.count }}"
              data-product-id="{{ set.product__model }}" data-url="{% url 'order_process' order.id %}" data-output-id="price-{{ forloop.counter }}">
     </li>
     {% endfor %}

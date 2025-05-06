@@ -98,18 +98,9 @@ class OrderDetailView(DetailView):
     context_object_name = "order"
 
     def get_context_data(self, **kwargs):
-        count = []
         context = super(OrderDetailView, self).get_context_data(**kwargs)
-        context["line"] = OrderLine.objects.filter(order=self.object)
-        for query in context["line"]:
-            context["cars"] = query.product
-            print("my context:", context["cars"])
-            count.append(Car.car_count(context["cars"]))
-            context["cars_count"] = count
-            print("car count:", context["cars_count"])
 
         #context["cars"] = Car.objects.filter(order)
-        print(context["cars"])
         context["lines"] = OrderLine.objects.filter(order=self.object).values("product__model__name",
                                                                               "product__model",
                                                                               "product__transmission",
@@ -117,6 +108,14 @@ class OrderDetailView(DetailView):
                                                                               "product__price",).annotate(count = Count("id"),
                                                                                                   price = Sum("product__price"))
         #print(context["lines"])
+        for car in context["lines"]:
+            print(car)
+            car_ = Car.objects.filter(model=car["product__model"],
+                                      transmission=car["product__transmission"],
+                                      color=car["product__color"]).first()
+            print(car_.car_count)
+            car["max_count"] = car_.car_count
+        print(context["lines"])
         context["total_price"] = OrderLine.objects.filter(order=self.object).aggregate(s =  Sum("price"))["s"]
         #context["cars_count"] = Car.car_count(context["cars"])
         #print(context["cars_count"])

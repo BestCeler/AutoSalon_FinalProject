@@ -64,7 +64,7 @@ class Car(Model):
                 f"id {self.cid} \n"
                 f"established: {self.established}")
 
-    #@property
+    @property
     def car_count(self):
         print( Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count())
 
