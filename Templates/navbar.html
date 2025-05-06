@@ -10,10 +10,24 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
-                <a class="nav-item nav-link active" href="{% url 'models' %}">Cars Models</a>
-                <a class="nav-item nav-link active" href="{% url 'book_testdrive' %}">Test Drive</a>
-                <a class="nav-item nav-link active" href="{% url 'book_rent' %}">Rent</a>
+                <a class="nav-item nav-link active" href="{% url 'convert_view' %}">
+                    {% if exchange_rate %}
+                        💶 1€ = {{ exchange_rate|floatformat:2 }} Kč
+                    {% else %}
+                        Currency
+                    {% endif %}
+                </a>
             </div>
+        </div>
+        <div class="navbar-nav mx-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">Cars</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'models' %}">Cars Models</a>
+                            <a class="dropdown-item" href="{% url 'book_testdrive' %}">Test Drive</a>
+                            <a class="dropdown-item" href="{% url 'book_rent' %}">Rent</a>
+                        </div>
+                </div>
         </div>
         <div class="navbar-nav ml-auto">
                 <div class="search-div">
