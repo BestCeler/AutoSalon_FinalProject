@@ -57,6 +57,13 @@
         <option value="1">automatic</option>
     </select>
     <button type="submit">submit</button>
+    <hr>
+    {% if perms.cars_vw.change_car %}
+        <a href="{% url 'model_update' model.id %}" class="btn btn-primary">Update</a>
+    {% endif %}
+    {% if perms.cars_vw.delete_car %}
+        <a href="{% url 'model_delete' model.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
 </form>
 
 <form method="post" action="{% url 'make_order' %}">

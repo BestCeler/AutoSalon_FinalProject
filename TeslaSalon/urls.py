@@ -15,12 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from cars_vw.views import *
-from orders.views import  *
-#from orders.views import MakeOrderView
-from users.views import SubmittableLoginView, SignUpView, ProfileDetailView, user_logout
+from orders.views import TestDriveDetailView, book_test_drive, OrdersActions, OrderDetailView, book_rent, RentDetailView
+from users.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,6 +44,23 @@ urlpatterns = [
 
     path("order/process/order/change/<int:pk>/", calculate_price, name='calculate_price'),
 
+    path("model/color/filter/", CarFilterView.as_view(), name='car_filter'),
 
+    path('search/', search, name='search'),
+
+    path('accounts/login/', SubmittableLoginView.as_view(), name='login'),
+    path('accounts/logout/', user_logout, name='logout'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('profile/<int:pk>/', ProfileDetailView.as_view(), name='profile'),
+
+    path('api/convert-eur-to-czk/', convert_eur_to_czk, name='convert-eur-to-czk'),
+    path('convert/', convert_view, name='convert-view'),
+
+    path("testdrive/book/", book_test_drive, name="book_testdrive"),
+    path("testdrive/<int:pk>/", TestDriveDetailView.as_view(), name="testdrive_detail"),
+
+    path('rent/book/', book_rent, name='book_rent'),
+    path('rent/<int:pk>/', RentDetailView.as_view(), name='rent_detail')
 
 ]

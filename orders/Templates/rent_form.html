@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Rent a Car{% endblock %}
+
+{% block content %}
+  <h1>Rent a Car</h1>
+
+  {% if form %}
+    <p><strong>User:</strong> {{ request.user }}</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Book Rent</button>
+    </form>
+  {% else %}
+    <p>No form available.</p>
+  {% endif %}
+{% endblock %}

@@ -1,13 +1,15 @@
 from django.db.models import Sum
 from django.db.models.aggregates import Count
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, DetailView, ListView
 
 from cars_vw.models import Car
-from orders.models import Order, OrderLine
+from orders.forms import TestDriveForm, RentForm
+from orders.models import Order, OrderLine, TestDrive, Rents
 from users.models import Address
 
 
@@ -21,6 +23,9 @@ class OrdersActions(View):
     def handle_order_finished(self, request):
         return render(request, "home.html")
 
+
+
+class OrdersActions(View):
     def setup(self, request, *args, **kwargs):
         super().setup(request,*args, **kwargs)
         self.order_ = request.session.get("order_")
@@ -40,6 +45,7 @@ class OrdersActions(View):
 
             self.order_ = Order.objects.create(number=number_, client=client_, shop_address=get_shop_address_)
             request.session["order_"] = self.order_.pk
+            #print(self.order_)
 
             if self.order_:
                 car_counter_ = 1
@@ -55,6 +61,7 @@ class OrdersActions(View):
                             product_ = request.POST.get(f"taken_car{car_counter_}")
 
                 get_product_ = Car.objects.get(pk=product_)
+                print(get_product_)
                 price_ = get_product_.price
 
                 next_in_line_ = OrderLine.objects.create(order=get_order_, product=get_product_, price=price_)
@@ -81,6 +88,7 @@ class OrdersActions(View):
                         product_ = request.POST.get(f"taken_car{car_counter_}")
 
             get_product_ = Car.objects.get(pk=product_)
+            print(get_product_)
             price_ = get_product_.price
 
             next_in_line_ = OrderLine.objects.create(order=get_order_, product=get_product_, price=price_)
@@ -146,3 +154,42 @@ def calculate_price(request, pk):
     except (Car.DoesNotExist, ValueError, TypeError) as e:
         print(f"error occurred {e}")
         return JsonResponse({"total": "Error"}, status=400)
+
+@login_required
+def book_rent(request):
+    if request.method == "POST":
+        form = RentForm(request.POST)
+        if form.is_valid():
+            rent = form.save(commit=False)
+            rent.client = request.user
+            rent.save()
+            return redirect('rent_detail', pk=rent.pk)
+    else:
+        form = RentForm()
+    return render(request, "rent_form.html", {"form": form})
+
+# shows the rental page for a specific car
+class RentDetailView(DetailView):
+    model = Rents
+    template_name = "rent_detail.html"
+    context_object_name = "rent"
+
+class TestDriveDetailView(DetailView):
+    model = TestDrive
+    template_name = "test_drive.html"
+    context_object_name = "testdrive"
+
+# function for creating (booking) a test drive
+@login_required
+def book_test_drive(request):
+    if request.method == "POST":
+        form = TestDriveForm(request.POST)
+        if form.is_valid():
+            test_drive = form.save(commit=False)
+            test_drive.client = request.user
+            test_drive.save()
+            return redirect("testdrive_detail", pk=test_drive.pk)
+    else:
+        form = TestDriveForm()
+
+    return render(request, "test_drive.html", {"form": form})

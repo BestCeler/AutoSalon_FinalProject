@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Convert EUR to CZK</h2>
+<form id="currency-form">
+    <label for="amount">Amount in EUR:</label>
+    <input type="number" id="amount" name="amount" step="0.01" required>
+    <button type="submit" class="btn btn-primary">Convert</button>
+</form>
+
+<div id="result" style="margin-top: 20px;"></div>
+
+<script>
+document.getElementById("currency-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const amount = document.getElementById("amount").value;
+    fetch(`/api/convert-eur-to-czk/?amount=${amount}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.converted_czk !== undefined) {
+                document.getElementById("result").innerHTML =
+                    `<strong>${data.amount_eur} EUR</strong> = <strong>${data.converted_czk} CZK</strong> <br>(Rate: ${data.rate})`;
+            } else {
+                document.getElementById("result").innerText = "Conversion failed. Try again.";
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            document.getElementById("result").innerText = "Error occurred. Please try again.";
+        });
+});
+</script>
+{% endblock %}

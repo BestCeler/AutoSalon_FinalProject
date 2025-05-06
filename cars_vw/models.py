@@ -50,7 +50,7 @@ class Car(Model):
     designation = BooleanField(null=False, blank=False, default=False) # for_sale = true, for_rent = false
     test_drive = BooleanField(null=False, blank=False, default=False)
     cid = CharField(max_length=16, null=False, blank=False, unique=True) # SPZ or car id, unique set of characters for identification
-    location = ForeignKey(Address, null=False, blank=False, on_delete=CASCADE, related_name="cars") # city of the cars location
+    location = ForeignKey(Address, default=1, null=True, blank=False, on_delete=CASCADE, related_name="cars") # city of the cars location
 
 
     class Meta:
