@@ -20,7 +20,7 @@ from django.urls import path
 from cars_vw.views import *
 from orders.views import  *
 #from orders.views import MakeOrderView
-from users.views import SubmittableLoginView, SignUpView
+from users.views import SubmittableLoginView, SignUpView, ProfileDetailView, user_logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,8 @@ urlpatterns = [
 
     path("user/login/", SubmittableLoginView.as_view(), name="login"),
     path("user/signup/", SignUpView.as_view(), name="signup"),
+    path("user/logout/", user_logout, name="logout"),
+    path("user/profile/<int:pk>", ProfileDetailView.as_view(), name="profile"),
 
     path('models/', ModelsListView.as_view(), name='models'),
     path('model/<int:pk>/', CarToModelDetailView.as_view(), name='model'),

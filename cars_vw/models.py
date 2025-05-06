@@ -57,12 +57,18 @@ class Car(Model):
         ordering = ['cid' ,'established'] # orders the db by the SPZ and by the date when the car was taken in the shop
 
     def __str__(self):
-        return f"this car is of model {self.model.name}, id {self.cid} and was established {self.established}"
+        return f"this car is of model {self.model.name}, color is {self.color.name} and transmission {self.transmission}; id is {self.pk}"
 
     def __repr__(self):
         return (f"model: {self.model.name} \n"
                 f"id {self.cid} \n"
                 f"established: {self.established}")
+
+    #@property
+    def car_count(self):
+        print( Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count())
+
+        return Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count()
 
 
 
