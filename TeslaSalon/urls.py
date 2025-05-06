@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 from cars_vw.views import *
-from orders.views import TestDriveDetailView, book_test_drive, OrdersActions, OrderDetailView, book_rent, RentDetailView
+from orders.views import TestDriveDetailView, book_test_drive, OrdersActions, OrderDetailView, book_rent, \
+    RentDetailView, calculate_price
 from users.views import *
 
 urlpatterns = [
