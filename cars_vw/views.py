@@ -1,7 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from cars_vw.forms import CarModelForm
 from cars_vw.models import Car, CarModel, CarColor
@@ -16,8 +15,6 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 
-# Create your views here.
-
 def home(request):
     return render(request, 'home.html')
 
@@ -28,24 +25,17 @@ class ModelsListView(ListView):
     context_object_name = 'models'
 
 
-"""class CarDetailView(DetailView):
-    template_name = 'model.html'
-    model = CarModel
-    context_object_name = 'car' # TODO: change into model - we need to change a lot of things to models not cars"""
-
 
 class CarToModelDetailView(DetailView):
     template_name = 'model.html'
     model = CarModel
     context_object_name = 'model'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs): # context for displaying correct information
         context = super().get_context_data(**kwargs)
-        #context["models"] = CarModel.objects.get(self.request.META)
         context["colors"] = CarColor.objects.filter(cars__model=self.object).distinct()
         get_address_ = Address.objects.filter(cars__model=self.object).first()
         context["address"] = get_address_
-        print(context["address"])
         if context["colors"]:
             default_color_ = context['colors'][0]
             context["cars"] = Car.objects.filter(model=self.object, color=default_color_)
@@ -54,14 +44,12 @@ class CarToModelDetailView(DetailView):
 
         context["selected_car"] = context["cars"].first()
 
-        #print(self.object)
         return context
 
 
 
 class CarFilterView(DetailView):
     def post(self, request, *args, **kwargs):
-        #context = self.get_context_data(**kwargs)
         color_ = self.request.POST.get("color")
         model_ = self.request.POST.get("model")
         transmission_ = self.request.POST.get("transmission")
@@ -75,8 +63,6 @@ class CarFilterView(DetailView):
         else:
             cars = None
         context["address"] = Address.objects.filter(cars=cars).first()
-
-        print(context["address"])
 
         return render(request, "model.html", context)
 

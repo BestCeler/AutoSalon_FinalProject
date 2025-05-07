@@ -65,7 +65,7 @@ class Car(Model):
                 f"established: {self.established}")
 
     @property
-    def car_count(self):
+    def car_count(self): # calculates cars of the same attributes
         print( Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count())
 
         return Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count()

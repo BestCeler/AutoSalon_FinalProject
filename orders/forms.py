@@ -42,12 +42,12 @@ class OrderLineForm(ModelForm):
             return quantity
 
 
-class TestDriveForm(ModelForm):
+class TestDriveForm(ModelForm): # form for booking a drive
     class Meta:
         model = TestDrive
         fields = ['product', 'date', 'location']
         widgets = {
-            'date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date': forms.DateTimeInput(attrs={'type': 'datetime-local'}), # widget for better user experience
         }
         labels = {
             'product': 'Select a car',
@@ -59,12 +59,12 @@ class TestDriveForm(ModelForm):
         # Check if there is a date in the future
         def clean_date(self):
             date = self.cleaned_data.get('date')
-            if date and date <= timezone.now():
+            if date and date <= timezone.now(): # checks validity
                 raise forms.ValidationError("Date and time must be in the future.")
             return date
 
 
-class RentForm(ModelForm):
+class RentForm(ModelForm): # form for booking rents
     class Meta:
         model = Rents
         fields = ['product', 'date_from', 'date_to', 'location']

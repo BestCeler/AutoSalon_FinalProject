@@ -65,27 +65,27 @@
 
 ### Web
 
-- [ ] Main Page
-  - [ ] login / register
-  - [ ] Cars
+- [x] Main Page
+  - [x] login / register
+  - [x] Cars
 
-- [ ] Cars Page
-  - [ ] filters
-    - [ ] for rent
-    - [ ] for sale
-    - [ ] for test drive
-    - [ ] color
-    - [ ] price
-    - [ ] model
-  - [ ] model
-  - [ ] price
-  - [ ] color
-  - [ ] drive distance
+- [x] Cars Page
+  - [x] filters
+    - [x] for rent
+    - [x] for sale
+    - [x] for test drive
+    - [x] color
+    - [x] price
+    - [x] model
+  - [x] model
+  - [x] price
+  - [x] color
+  - [x] drive distance
 
-- [ ] User Page
-  - [ ] rents (m:n -> Rents)
-  - [ ] orders
-  - [ ] test drives
+- [x] User Page
+  - [x] rents (m:n -> Rents)
+  - [x] orders
+  - [x] test drives
 
 
 ------------
@@ -122,3 +122,7 @@
 
 ### 30-04-2025
 - did javascript for dynamical updates
+
+### 07-05-2025
+- finished work on orders and respective HTMLs
+- finishing updates of views and other files

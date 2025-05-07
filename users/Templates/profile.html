@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Hello</h1>
-<ul>
-{% for order in orders %}
-    <li>
-<div>{{ order.id }}</div>
-    </li>
-</ul>
-{% endfor %}
+<button onclick="showSection('orders')">Orders</button>
+<button onclick="showSection('tests')">Test Drives</button>
+<button onclick="showSection('rents')">Rents</button>
+
+<h1>{{ user }}</h1>
+
+<div id="orders" class="section">
+    {% for order in orders %}
+    <p>Order ID: {{ order.id }}</p>
+    {% endfor %}
+</div>
+
+<div id="tests" class="section" style="display: none">
+    {% for test in drives %}
+    <h4>Test Drive ID: {{ test.id }}</h4>
+    <p>Product: {{ test.product.model.name }}</p>
+    {% endfor %}
+</div>
+
+<div id="rents" class="section" style="display: none">
+    {% for rent in rents %}
+    <h4>Rent ID: {{ rent.id }}</h4>
+    <p>Product: {{ rent.product.model.name }}</p>
+    <p>From: {{ rent.date_from }} | To: {{ rent.date_to }}</p>
+    {% endfor %}
+</div>
+
+<script>
+    function showSection(sectionId){
+        document.querySelectorAll(".section").forEach(el => el.style.display = "none")
+        document.getElementById(sectionId).style.display = "block"
+    }
+</script>
+
 {% endblock %}

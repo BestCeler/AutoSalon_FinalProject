@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from cars_vw.views import *
 from orders.views import TestDriveDetailView, book_test_drive, OrdersActions, OrderDetailView, book_rent, \
-    RentDetailView, calculate_price
+    RentDetailView, calculate_price, FinishOrderView
 from users.views import *
 
 urlpatterns = [
@@ -62,6 +62,8 @@ urlpatterns = [
     path("testdrive/<int:pk>/", TestDriveDetailView.as_view(), name="testdrive_detail"),
 
     path('rent/book/', book_rent, name='book_rent'),
-    path('rent/<int:pk>/', RentDetailView.as_view(), name='rent_detail')
+    path('rent/<int:pk>/', RentDetailView.as_view(), name='rent_detail'),
+
+    path("order/<int:pk>/finish", FinishOrderView.as_view(), name="finish_order"),
 
 ]

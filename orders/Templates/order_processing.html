@@ -16,21 +16,23 @@
 
 <div>{{ order.id }}</div>
 
-<form method="post" action="">
+<form method="post" action="{% url 'finish_order' order.id %}">
   {% csrf_token %}
   <ul>
     {% for set in lines %}
     <li>
       {{ set.product__model__name }} ({{ set }})
       <div id="price-{{ forloop.counter }}" >Total: <span class="price_output" >{{ set.price }}</span></div>
-      <input type="number" class="quantity" name="quantity"
+      <input type="number" class="quantity" name="quantity_{{ forloop.counter }}"
              min="0" max="{{ set.max_count }}" value="{{ set.count }}"
              data-product-id="{{ set.product__model }}" data-url="{% url 'order_process' order.id %}" data-output-id="price-{{ forloop.counter }}">
     </li>
     {% endfor %}
   </ul>
   Final Price: <div id="price_final"> {{ total_price }} </div>
+  <button type="submit">finish order</button>
 </form>
+
 
 <script>
 
