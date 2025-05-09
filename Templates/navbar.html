@@ -1,29 +1,43 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container fixed">
+    <div class="container">
         <a class="navbar-brand" href="/">TeslaAutoSalon</a>
-        <button
-                class="navbar-toggler" type="button"
-                data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
-                <a class="nav-item nav-link active" href="{% url 'models' %}">Cars Models</a>
-                <a class="nav-item nav-link active" href="{% url 'book_testdrive' %}">Test Drive</a>
-                <a class="nav-item nav-link active" href="{% url 'book_rent' %}">Rent</a>
+                <a class="nav-item nav-link active exchange-rate" href="{% url 'convert_view' %}">
+                    {% if exchange_rate %}
+                        💶 1€ = {{ exchange_rate|floatformat:2 }} Kč
+                    {% else %}
+                        Currency
+                    {% endif %}
+                </a>
             </div>
-        </div>
-        <div class="navbar-nav ml-auto">
+
+            <div class="navbar-nav mx-auto">
+                <div class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">Cars</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'models' %}">Car Models</a>
+                        <a class="dropdown-item" href="{% url 'book_testdrive' %}">Test Drive</a>
+                        <a class="dropdown-item" href="{% url 'book_rent' %}">Rent</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar-nav ml-auto">
                 <div class="search-div">
                     <form method="post" action="/search/">
                         {% csrf_token %}
                         <input type="text" id="search" name="search" placeholder="🔎 Search...">
                     </form>
                 </div>
-        </div>
-        <div class="navbar-nav ml-auto">
+            </div>
+
+            <div class="navbar-nav ml-auto">
                 <div class="nav-item dropdown">
                     {% if user.is_authenticated %}
                         <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown">{{ user.username }}</a>
@@ -41,11 +55,15 @@
                         </div>
                     {% endif %}
                 </div>
-        </div>
-        <div class="navbar-nav m-auto">
-            {% if request.session.order_ %}
-            <a class="nav-item nav-link active" href="{% url 'order_process' pk=request.session.order_ %}">{{request.session.order_}}</a>
-            {% endif %}
+            </div>
+
+            <div class="navbar-nav m-auto">
+                {% if request.session.order_ %}
+                    <a class="nav-item nav-link active" href="{% url 'order_process' pk=request.session.order_ %}">
+                        {{ request.session.order_ }}
+                    </a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </nav>

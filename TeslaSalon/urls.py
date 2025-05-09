@@ -55,8 +55,8 @@ urlpatterns = [
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
     path('profile/<int:pk>/', ProfileDetailView.as_view(), name='profile'),
 
-    path('api/convert-eur-to-czk/', convert_eur_to_czk, name='convert-eur-to-czk'),
-    path('convert/', convert_view, name='convert-view'),
+    path('api/convert-eur-to-czk/', convert_eur_to_czk, name='convert_eur_to_czk'),
+    path('convert/', convert_view, name='convert_view'),
 
     path("testdrive/book/", book_test_drive, name="book_testdrive"),
     path("testdrive/<int:pk>/", TestDriveDetailView.as_view(), name="testdrive_detail"),
