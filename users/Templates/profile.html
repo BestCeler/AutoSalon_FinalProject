@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Hello</h1>
+<ul>
+{% for order in orders %}
+    <li>
+<div>{{ order.id }}</div>
+    </li>
+</ul>
+{% endfor %}
+{% endblock %}

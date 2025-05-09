@@ -50,19 +50,25 @@ class Car(Model):
     designation = BooleanField(null=False, blank=False, default=False) # for_sale = true, for_rent = false
     test_drive = BooleanField(null=False, blank=False, default=False)
     cid = CharField(max_length=16, null=False, blank=False, unique=True) # SPZ or car id, unique set of characters for identification
-    location = ForeignKey(Address, null=False, blank=False, on_delete=CASCADE, related_name="cars") # city of the cars location
+    location = ForeignKey(Address, default=1, null=True, blank=False, on_delete=CASCADE, related_name="cars") # city of the cars location
 
 
     class Meta:
         ordering = ['cid' ,'established'] # orders the db by the SPZ and by the date when the car was taken in the shop
 
     def __str__(self):
-        return f"this car is of model {self.model.name}, id {self.cid} and was established {self.established}"
+        return f"this car is of model {self.model.name}, color is {self.color.name} and transmission {self.transmission}; id is {self.pk}"
 
     def __repr__(self):
         return (f"model: {self.model.name} \n"
                 f"id {self.cid} \n"
                 f"established: {self.established}")
+
+    @property
+    def car_count(self):
+        print( Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count())
+
+        return Car.objects.filter(model=self.model, transmission=self.transmission, color=self.color).count()
 
 
 

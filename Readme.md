@@ -112,3 +112,13 @@
 ### 22-04-2025
 - work on orders proceeds in an orderly fashion
 - Eldritch gods consulted
+
+### 28-04-2025
+- orders finished
+- working on processing orders
+
+### 29-04-2025
+- TODO: script for order_processing
+
+### 30-04-2025
+- did javascript for dynamical updates

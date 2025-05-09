@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Rent Details{% endblock %}
+
+{% block content %}
+  <h1>Rent Details</h1>
+
+  {% if rent %}
+    <ul>
+      <li><strong>Car Model:</strong> {{ rent.product.model.name }}</li>
+      <li><strong>Start Date:</strong> {{ rent.date_from }}</li>
+      <li><strong>End Date:</strong> {{ rent.date_to }}</li>
+      <li><strong>Location:</strong> {{ rent.location }}</li>
+    </ul>
+  {% else %}
+    <p>No rent data available.</p>
+  {% endif %}
+{% endblock %}

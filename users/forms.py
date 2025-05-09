@@ -50,7 +50,7 @@ class SignupForm(UserCreationForm):
         phone = self.cleaned_data.get("phone")
         profile = Profile(
             user=user,
-            phone_num = phone
+            phone_num = self.cleaned_data['phone'],
         )
         if commit:
             profile.save() # saves created profile

@@ -73,7 +73,9 @@
     {% else %}
     <input type="hidden" id="empty_address" name="shop_address" value="none">
     {% endif %}
-    <input type="hidden" id="taken_car" name="taken_car" value="{{ selected_car.id }}">
+    {% for car in cars %}
+    <input type="text" id="taken_car{{ forloop.counter }}" name="taken_car{{ forloop.counter }}" value="{{ car.id }}">
+    {% endfor %}
     <button type="submit">Order</button>
 </form>
 
