@@ -1,0 +1,29 @@
+body.winter {
+    background-color: #cce6ff; /* light blue */
+    background-image: url('/static/pictures/background/winter.jpg');
+    background-size: cover;
+}
+
+body.spring {
+    background-color: #d4f7dc; /* light green */
+    background-image: url('/static/pictures/background/spring.jpg');
+    background-size: cover;
+}
+
+body.summer {
+    background-color: #fff5cc; /* light yellow */
+    background-image: url('/static/pictures/background/summer.jpg');
+    background-size: cover;
+}
+
+body.autumn {
+    background-color: #ffe6cc; /* light orange */
+    background-image: url('/static/pictures/background/autumn.jpg');
+    background-size: cover;
+}
+
+/* Style for exchange rate */
+.exchange-rate {
+    font-weight: bold !important;
+    color: #90ee90 !important; /* LightGreen */
+}

@@ -1,9 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     TeslaSalon
 {% endblock %}
 
 {% block content %}
-    <h1>Welcome to the home page</h1>
+    <h1 class="text-center">Welcome to the home page</h1>
+
+    <img src="{% static 'pictures/car_models/tesla.jpg' %}"
+         alt="Home image"
+         class="d-block mx-auto"
+         style="max-width: 600px; width: 100%; height: auto;">
+
 {% endblock %}
