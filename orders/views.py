@@ -17,9 +17,9 @@ class OrdersActions(View):
     def handle_order(self, request):
         return render(request, "home.html")
     def handle_orderline(self, request):
-        return render(request, "home.html")
+        return render(request, "home.html") # used to easily identify the function
 
-    def setup(self, request, *args, **kwargs):
+    def setup(self, request, *args, **kwargs): #using a session to setup active order
         super().setup(request,*args, **kwargs)
         self.order_ = request.session.get("order_")
         self.order_line_ = request.session.get("order_line_", [])
