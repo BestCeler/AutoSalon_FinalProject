@@ -11,6 +11,12 @@ class Address(Model):
     country = CharField(max_length=100, null=False, blank=False)
     state = CharField(max_length=100, null=True, blank=True) # will be used if user is from USA
 
+    def __str__(self):
+        return f'{self.city} {self.street} {self.country}'
+
+    def __repr__(self):
+        return f'{self.city} {self.street} {self.country}'
+
 
 class Profile(Model):
     user = OneToOneField(User, on_delete=models.CASCADE) # Uses OTOF to get fill the variable with created user

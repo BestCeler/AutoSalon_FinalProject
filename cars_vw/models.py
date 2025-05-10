@@ -7,6 +7,12 @@ from users.models import Address
 class Picture(Model):
     img = ImageField(upload_to="media/pictures/car_pictures/", null=False, blank=True)
 
+    def __str__(self):
+        return str(self.img)
+
+    def __repr__(self):
+        return str(self.img)
+
 
 # creating models of cars which are linked with each unique car in database
 class CarModel(Model):
