@@ -14,21 +14,12 @@
             <p><strong>The amount of km per charge in a model:</strong> {{ model.c_for }}</p>
             <p><strong>Description:</strong> {{ model.description }}</p>
             <p><strong>number of seats:</strong> {{ model.num_seats }}</p>
-            <p><strong>pictures:</strong> {{ model.pictures }}</p>
+        {% for picture in model.pictures.all %}
+            <p><strong>pictures:</strong> <img src="{{ picture.img.url }}" alt="car images" style="width: 300px; height: auto"></p>
+        {% endfor %}
 
         </div>
     </div>
-
-<ul>
-    {% for car in cars %}
-    <li>{{car.color}}</li>
-    {% endfor %}
-
-    {% for car in cars %}
-    <li>{{car.model}}</li>
-    {% endfor %}
-
-</ul>
 
     {% if cars %}
     <div>There is a car</div>
@@ -36,7 +27,7 @@
     <div>There is no car</div>
     {% endif %}
 {% if address %}
-<div>{{ address }}</div>
+<div>{{ address.postcode }}; {{ address.city }}</div>
 {% else %}
 <div>none</div>
 {% endif %}
@@ -74,7 +65,7 @@
     <input type="hidden" id="empty_address" name="shop_address" value="none">
     {% endif %}
     {% for car in cars %}
-    <input type="text" id="taken_car{{ forloop.counter }}" name="taken_car{{ forloop.counter }}" value="{{ car.id }}">
+    <input type="hidden" id="taken_car{{ forloop.counter }}" name="taken_car{{ forloop.counter }}" value="{{ car.id }}">
     {% endfor %}
     <button type="submit">Order</button>
 </form>

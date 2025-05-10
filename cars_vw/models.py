@@ -5,7 +5,7 @@ from users.models import Address
 
 
 class Picture(Model):
-    img = ImageField(upload_to="pictures/car_pictures/", null=False, blank=True)
+    img = ImageField(upload_to="media/pictures/car_pictures/", null=False, blank=True)
 
 
 # creating models of cars which are linked with each unique car in database

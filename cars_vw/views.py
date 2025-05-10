@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from cars_vw.forms import CarModelForm
-from cars_vw.models import Car, CarModel, CarColor
+from cars_vw.models import Car, CarModel, CarColor, Picture
 from users.models import Address
 
 from dotenv import load_dotenv
