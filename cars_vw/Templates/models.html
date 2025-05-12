@@ -7,8 +7,9 @@
 
 {% block content %}
     <h1>Cars Models</h1>
+    {% if perms.cars_vw.model_create %}
     <a href="{% url 'model_create' %}" class="btn btn-primary mb-4">Add</a>
-
+    {% endif %}
     <div class="container">
         <div class="row">
             {% for model in models %}

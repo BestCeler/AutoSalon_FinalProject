@@ -18,9 +18,13 @@ class Address(Model):
         return f'{self.city} {self.street} {self.country}'
 
 
-
-
 class Profile(Model):
     user = OneToOneField(User, on_delete=models.CASCADE) # Uses OTOF to get fill the variable with created user
     address = ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE, related_name='users')
     phone_num = IntegerField(null=False, blank=False)
+
+    def __str__(self):
+        return f'{self.address.name} {self.user} {self.phone_num}'
+
+    def __repr__(self):
+        return f'{self.address.name} {self.user} {self.phone_num}'
