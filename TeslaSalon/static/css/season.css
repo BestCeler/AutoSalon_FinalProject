@@ -10,6 +10,7 @@ body.spring {
     background-size: cover;
 }
 
+
 body.summer {
     background-color: #fff5cc; /* light yellow */
     background-image: url('/static/pictures/background/summer1.jpg');
@@ -26,4 +27,20 @@ body.autumn {
 .exchange-rate {
     font-weight: bold !important;
     color: #90ee90 !important; /* LightGreen */
+}
+
+
+.bg-silver-blue {
+    background: linear-gradient(90deg, #a9a9a9, #4682b4); /* darker silver and rich blue*/
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* shadow under the navbar */
+.navbar {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.jumbotron {
+    background-color: #cce6ff;
 }

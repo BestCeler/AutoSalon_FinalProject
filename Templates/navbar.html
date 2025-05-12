@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-silver-blue">
     <div class="container">
         <a class="navbar-brand" href="/">TeslaAutoSalon</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
@@ -59,9 +59,8 @@
 
             <div class="navbar-nav m-auto">
                 {% if request.session.order_ %}
-                    <a class="nav-item nav-link active" href="{% url 'order_process' pk=request.session.order_ %}">
-                        {{ request.session.order_ }}
-                    </a>
+                    <a class="nav-item nav-link active" href="{% url 'order_process' pk=request.session.order_ %}" style="font-size: 24px; text-shadow: 1px 1px 2px gray;">
+    🗑️</a>
                 {% endif %}
             </div>
         </div>

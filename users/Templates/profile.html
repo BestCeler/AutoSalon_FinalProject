@@ -17,6 +17,8 @@
     {% for test in drives %}
     <h4>Test Drive ID: {{ test.id }}</h4>
     <p>Product: {{ test.product.model.name }}</p>
+    <p>Date: {{ test.date }}</p>
+
     {% endfor %}
 </div>
 
