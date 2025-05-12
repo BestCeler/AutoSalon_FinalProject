@@ -12,6 +12,8 @@ class Address(Model):
     state = CharField(max_length=100, null=True, blank=True) # will be used if user is from USA
 
 
+
+
 class Profile(Model):
     user = OneToOneField(User, on_delete=models.CASCADE) # Uses OTOF to get fill the variable with created user
     address = ForeignKey(Address, null=True, blank=True, on_delete=models.CASCADE, related_name='users')

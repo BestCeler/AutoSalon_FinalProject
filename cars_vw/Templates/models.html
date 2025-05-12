@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Cars Models
@@ -6,18 +7,30 @@
 
 {% block content %}
     <h1>Cars Models</h1>
-        <a href="{% url 'model_create' %}" class="btn btn-primary">Add</a>
-    <ul>
-        {% for model in models %}
-            <li>
-                <a href="{% url 'model' model.id %} ">{{ model.name }}</a>
-                {% if perms.cars_vw.change_car %}
-                    <a href="{% url 'model_update' model.id %}">✏️</a>
-                {% endif %}
-                {% if perms.cars_vw.delete_car %}
-                    <a href="{% url 'model_delete' model.id %}">❌</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <a href="{% url 'model_create' %}" class="btn btn-primary mb-4">Add</a>
+
+    <div class="container">
+        <div class="row">
+            {% for model in models %}
+                <div class="col-md-6 mb-4 text-center">
+                    {% if model.pictures.all %}
+                        {% with model.pictures.all|first as first_picture %}
+                            <a href="{% url 'model' model.id %}">
+                                <img src="{{ first_picture.img.url }}" alt="{{ model.name }}" class="img-fluid" style="max-height: 300px; object-fit: cover;">
+                            </a>
+                        {% endwith %}
+                    {% endif %}
+                    <div class="mt-2">
+                        <a href="{% url 'model' model.id %}" class="h5 d-block">{{ model.name }}</a>
+                        {% if perms.cars_vw.change_car %}
+                            <a href="{% url 'model_update' model.id %}">✏️</a>
+                        {% endif %}
+                        {% if perms.cars_vw.delete_car %}
+                            <a href="{% url 'model_delete' model.id %}">❌</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

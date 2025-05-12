@@ -32,8 +32,6 @@
 <div>none</div>
 {% endif %}
 
-
-
 <form method="post" action="{% url 'car_filter' %}">
     {% csrf_token %}
     <input type="hidden" id="model" name="model" value="{{ model.id }}">
@@ -69,6 +67,5 @@
     {% endfor %}
     <button type="submit">Order</button>
 </form>
-
 
 {% endblock %}
