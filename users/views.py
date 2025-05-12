@@ -21,7 +21,7 @@ class SignUpView(CreateView): # django signup view - exists in login
 
 def user_logout(request):
     logout(request)
-    return redirect(request.META.get('HTTP_REFERER', '/'))  # stays on the same site
+    return redirect("home")  # redirects to home page
 
 
 class ProfileDetailView(DetailView): # shows profile of active user
