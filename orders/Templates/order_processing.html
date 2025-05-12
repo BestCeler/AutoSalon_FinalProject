@@ -8,20 +8,18 @@
 <h1>Order of user {{ request.user }}</h1>
 <ul>
   <li>Order of: {{ user }}</li>
-  <li>shop address: {{ order }}</li>
+  <li>shop address: {{ order.shop_address }}</li>
   {% for set in line %}
   <li>product: {{ set.product.model.name }}</li>
   {% endfor %}
 </ul>
-
-<div>{{ order.id }}</div>
 
 <form method="post" action="{% url 'finish_order' order.id %}">
   {% csrf_token %}
   <ul>
     {% for set in lines %}
     <li>
-      {{ set.product__model__name }} ({{ set }})
+      {{ set.product__model__name }}
       <div id="price-{{ forloop.counter }}" >Total: <span class="price_output" >{{ set.price }}</span></div>
       <input type="number" class="quantity" name="quantity_{{ forloop.counter }}"
              min="0" max="{{ set.max_count }}" value="{{ set.count }}"

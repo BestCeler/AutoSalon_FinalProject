@@ -65,7 +65,9 @@
     {% for car in cars %}
     <input type="hidden" id="taken_car{{ forloop.counter }}" name="taken_car{{ forloop.counter }}" value="{{ car.id }}">
     {% endfor %}
+    {% if cars %}
     <button type="submit">Order</button>
+    {% endif %}
 </form>
 
 {% endblock %}
