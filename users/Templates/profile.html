@@ -30,11 +30,6 @@
     {% endfor %}
 </div>
 
-<script>
-    function showSection(sectionId){
-        document.querySelectorAll(".section").forEach(el => el.style.display = "none")
-        document.getElementById(sectionId).style.display = "block"
-    }
-</script>
+<script src="section_display.js"></script>
 
 {% endblock %}
