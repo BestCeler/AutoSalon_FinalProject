@@ -1,5 +1,7 @@
 # Auto Salon - Final Project
 
+![img.png](img.png)
+
 ## Features
 
 ### Databases

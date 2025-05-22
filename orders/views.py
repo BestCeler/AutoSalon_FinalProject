@@ -8,7 +8,7 @@ from django.views.generic import DetailView
 
 from cars_vw.models import Car
 from orders.forms import TestDriveForm, RentForm
-from orders.models import Order, OrderLine, TestDrive, Rents
+from orders.models import *
 from users.models import Address
 
 
